@@ -1,0 +1,7 @@
+/target
+*.bak
+*.csv
+*.json
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,37 @@
+[package]
+name = "resxguard"
+version = "0.1.0"
+edition = "2021"
+description = "Portable CLI guard for .resx encoding, mojibake detection, repair, and safe updates"
+authors = ["ETHIC SEIDO"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/ethicseido/resxguard"
+homepage = "https://ethicseido.com"
+keywords = ["resx", "mojibake", "encoding", "localization", "cli"]
+categories = ["command-line-utilities", "development-tools"]
+exclude = ["target/", ".idea/", ".vscode/"]
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+encoding_rs = "0.8"
+regex = "1"
+walkdir = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+csv = "1"
+thiserror = "1"
+
+[dev-dependencies]
+assert_cmd = "2"
+predicates = "3"
+tempfile = "3"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+
+[package.metadata.resxguard]
+publisher = "ETHIC SEIDO"
+publisher_url = "https://ethicseido.com"
