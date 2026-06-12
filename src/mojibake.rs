@@ -26,7 +26,7 @@ static MOJIBAKE_PATTERNS: LazyLock<Vec<Regex>> = LazyLock::new(|| {
 
 static STRONG_MOJIBAKE_PATTERNS: LazyLock<Vec<Regex>> = LazyLock::new(|| {
     [
-        r"Ã[\u{0080}-\u{00BF}]",
+        r"Ã[\u{0080}-\u{00BF}\u{0152}\u{0153}\u{0160}\u{0161}\u{0178}\u{0192}\u{02C6}\u{02DC}\u{2010}-\u{2026}\u{2030}\u{2039}\u{203A}\u{20AC}\u{2122}]",
         r"Â[\u{0080}-\u{00BF}]",
         r"â[\u{0080}-\u{00BF}\u{2010}-\u{2122}]",
         r"ä[\u{0080}-\u{00BF}]",
@@ -365,6 +365,12 @@ mod tests {
     fn repairs_french_mojibake() {
         let r = repair_mojibake_text("FranÃ§ais", Mode::Safe, Some("fr"), 2, false);
         assert_eq!(r.text, "Français");
+    }
+
+    #[test]
+    fn repairs_capital_euro_punctuation_mojibake() {
+        let r = repair_mojibake_text("ImageStudio_Ã‰diteur", Mode::Safe, Some("fr"), 2, false);
+        assert_eq!(r.text, "ImageStudio_Éditeur");
     }
 
     #[test]
